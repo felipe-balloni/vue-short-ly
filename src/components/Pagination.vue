@@ -23,17 +23,17 @@ const isNextDisabled = computed(() => props.currentPage >= props.lastPage);
         <button :disabled="isPrevDisabled"
                 class="px-4 py-2 mx-1 text-sm text-gray-600 font-semibold bg-gray-200 rounded hover:bg-gray-400 shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                 @click="onPrev">
-            Prev
+            Anterior
         </button>
 
         <div>
-            Page {{ currentPage }} of {{ lastPage }}
+            Página {{ currentPage }} de {{ lastPage }}
         </div>
 
         <button :disabled="isNextDisabled"
                 class="px-4 py-2 mx-1 text-sm text-gray-600 font-semibold bg-gray-200 rounded hover:bg-gray-400 shadow-sm transition-color disabled:cursor-not-allowed disabled:opacity-60"
                 @click="onNext">
-            Next
+            Próximo
         </button>
     </div>
 </template>
