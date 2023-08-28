@@ -8,6 +8,7 @@ import Register from '@/pages/auth/Register.vue'
 import ForgotPassword from '@/pages/auth/ForgotPassword.vue'
 import ResetPassword from '@/pages/auth/ResetPassword.vue'
 import VerifyEmail from '@/pages/auth/VerifyEmail.vue'
+import ShortUrl from '@/pages/ShortUrl.vue'
 
 const APP_NAME = import.meta.env.VITE_APP_NAME
 
@@ -103,6 +104,15 @@ const routes = [
         },
         meta: {
             title: 'Email Verification',
+            guard: 'auth',
+        },
+    },
+    {
+        path: '/short-url/:id',
+        name: 'short-url',
+        component: ShortUrl,
+        meta: {
+            title: 'Short URL Details',
             guard: 'auth',
         },
     },
