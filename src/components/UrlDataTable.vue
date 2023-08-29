@@ -85,12 +85,12 @@ const copyToClipboard = (shortUrl) => {
         <UrlHeader/>
 
         <div
-v-if="store.shortUrlsData.data.length"
-             class="flex flex-col gap-4">
+            v-if="store.shortUrlsData.data.length"
+            class="flex flex-col gap-4">
             <div
-v-for="shortUrl in store.shortUrlsData.data"
-                 :key="shortUrl.id"
-                 class="px-4 py-6 whitespace-nowrap bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
+                v-for="shortUrl in store.shortUrlsData.data"
+                :key="shortUrl.id"
+                class="px-4 py-6 whitespace-nowrap bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
                 <span class="text-xs text-gray-400 font-light -mt-5 text-right block"> ({{ shortUrl.id }})</span>
                 <div class="flex items-center space-x-2">
                     <EllipsisVerticalIcon class="h-8 w-auto text-gray-500"/>
@@ -127,8 +127,8 @@ v-for="shortUrl in store.shortUrlsData.data"
                         </div>
                         <div class="space-x-3 mt-1 inline-flex">
                             <router-link
-:to="{ name: 'short-url', params: { id: shortUrl.id }}"
-                                         class="hover:scale-110 transition-all duration-200">
+                                :to="{ name: 'short-url', params: { id: shortUrl.id }}"
+                                class="hover:scale-110 transition-all duration-200">
                                 <TableCellsIcon class="h-6 w-auto"/>
                             </router-link>
 
