@@ -17,14 +17,5 @@ export const useShortUlrVisits = defineStore('shortUrlVisitsData', {
                     throw error
                 })
         },
-
-        // async getShortUrlVisits(shortUrlId) {
-        //     await axios.get(`/api/short-url/${shortUrlId}/visits`)
-        //         .then(response => {
-        //             this.shortUrlVisitsData = {...response.data}
-        //         }).catch(error => {
-        //             throw error
-        //         })
-        // },
     }
 })

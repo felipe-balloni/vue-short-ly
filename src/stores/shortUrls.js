@@ -2,8 +2,6 @@ import axios from "@/lib/axios"
 import {useStorage} from '@vueuse/core'
 import {defineStore} from 'pinia'
 
-const csrf = () => axios.get('/sanctum/csrf-cookie')
-
 export const useShortUrls = defineStore('shortUrlsData', {
     state: () => ({
         shortUrlsData: useStorage('shortUrlsData', {data: [], meta: {current_page: 1, last_page: 1}}),
@@ -17,10 +15,6 @@ export const useShortUrls = defineStore('shortUrlsData', {
         success: false,
         errors: [],
     }),
-
-    getters: {
-        hasShortUrlsData: state => state?.shortUrlsData?.data && state.shortUrlsData.data.length > 0,
-    },
 
     actions: {
         async getShortUrls() {

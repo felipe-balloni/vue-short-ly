@@ -1,5 +1,5 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {
     ChartBarIcon,
     CursorArrowRaysIcon,
@@ -18,19 +18,22 @@ import DeleteUrl from "@/components/DeleteUrl.vue";
 
 const store = useShortUrls();
 
-const totalVisits = computed(() =>
-    store.shortUrlsData.data.reduce((total, shortUrl) => total + shortUrl.visits_count, 0)
-);
+let short_urls = ref({});
+let statistics = ref({});
 
-const totalReferer = computed(() =>
-    store.shortUrlsData.data.reduce((total, shortUrl) => total + shortUrl.referer_url_count, 0)
-);
+const fetchShortsUrl = async () => {
+    await store.getShortUrls();
+    short_urls.value = store.shortUrlsData.data;
+};
+
+const fetchStatistics = async () => {
+    await store.getStatistics();
+    statistics.value = store.statisticsData.data;
+};
 
 onMounted(async () => {
-    if (!store.hasShortUrlsData) {
-        await store.getShortUrls();
-    }
-    await store.getStatistics();
+    await fetchShortsUrl();
+    await fetchStatistics();
 });
 
 let copied = ref({});
@@ -49,7 +52,7 @@ const copyToClipboard = (shortUrl) => {
             <div class="max-w-md flex justify-items-start gap-4">
                 <LinkIcon class="h-10 w-auto text-gray-500 mt-1"/>
                 <div class="flex flex-col items-center justify-center text-gray-600 text-3xl font-bold">
-                    {{ store.statisticsData.data.total }}
+                    {{ statistics.total }}
                     <span class="text-gray-500 text-sm font-semibold">
                         Links
                     </span>
@@ -59,7 +62,7 @@ const copyToClipboard = (shortUrl) => {
             <div class="max-w-md flex justify-items-start gap-4">
                 <EyeIcon class="h-10 w-auto text-gray-500 mt-1"/>
                 <div class="flex flex-col items-center justify-center text-gray-600 text-3xl font-bold">
-                    {{ store.statisticsData.data.total_visits }}
+                    {{ statistics.total_visits }}
                     <span class="text-gray-500 text-sm font-semibold">
                         visitas
                     </span>
@@ -69,7 +72,7 @@ const copyToClipboard = (shortUrl) => {
             <div class="max-w-md flex justify-items-start gap-4">
                 <CursorArrowRaysIcon class="h-10 w-auto text-gray-500 mt-1"/>
                 <div class="flex flex-col items-center justify-center text-gray-600 text-3xl font-bold">
-                    {{ store.statisticsData.data.total_referer_url }}
+                    {{ statistics.total_referer_url }}
                     <span class="text-gray-500 text-sm font-semibold">
                         Indicações
                     </span>
@@ -81,9 +84,11 @@ const copyToClipboard = (shortUrl) => {
 
         <UrlHeader/>
 
-        <div v-if="store.shortUrlsData.data.length"
+        <div
+v-if="store.shortUrlsData.data.length"
              class="flex flex-col gap-4">
-            <div v-for="shortUrl in store.shortUrlsData.data"
+            <div
+v-for="shortUrl in store.shortUrlsData.data"
                  :key="shortUrl.id"
                  class="px-4 py-6 whitespace-nowrap bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
                 <span class="text-xs text-gray-400 font-light -mt-5 text-right block"> ({{ shortUrl.id }})</span>
@@ -121,7 +126,8 @@ const copyToClipboard = (shortUrl) => {
                             <ChartBarIcon class="h-5 w-auto px-1 mb-1"/>
                         </div>
                         <div class="space-x-3 mt-1 inline-flex">
-                            <router-link :to="{ name: 'short-url', params: { id: shortUrl.id }}"
+                            <router-link
+:to="{ name: 'short-url', params: { id: shortUrl.id }}"
                                          class="hover:scale-110 transition-all duration-200">
                                 <TableCellsIcon class="h-6 w-auto"/>
                             </router-link>
