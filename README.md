@@ -1,6 +1,4 @@
-# Front End Short-ly - Vue.js 3 Edition
-
-# Front End Short-ly - Versão Vue.js 3
+# Front End Short-ly - Vue.js verão 3
 
 ## Documentação
 
